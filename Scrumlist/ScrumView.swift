@@ -13,14 +13,26 @@ struct ScrumView: View {
         List{
             ForEach(scrums){
                 scrum in
-                CardView(scrum: scrum).listRowBackground(scrum.theme.mainColor)
+                NavigationLink(destination: DetailView(scrum: scrum)){
+                    CardView(scrum: scrum)
+                }.listRowBackground(scrum.theme.mainColor)
+                
             }
         }
+        .navigationTitle("Daily Scrums")
+        .toolbar {
+                Button(action:{}){
+                    Image(systemName: "plus")
+                }.accessibilityLabel("New Scrum")
+            }
     }
 }
 
 struct ScrumView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrumView(scrums: DailyScrum.sampleData)
+        NavigationView{
+            ScrumView(scrums: DailyScrum.sampleData)
+        }
+        
     }
 }
